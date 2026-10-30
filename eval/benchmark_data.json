@@ -1,0 +1,126 @@
+[
+  {
+    "id": "bench_cbc",
+    "name": "Complete Blood Count Panel",
+    "sex": "male",
+    "age": 35,
+    "raw_text": "PATIENT REPORT\nDate: 15/02/2026\nAge: 35 Yrs  Sex: Male\nTEST RESULTS:\nHemoglobin 11.2 g/dL (13.0 - 17.0)\nWBC Count 7500 /uL (4000 - 11000)\nPlatelet Count 210000 /uL (150000 - 410000)\nRBC Count 4.8 million/uL (4.5 - 5.9)\nMCV 78.0 fL (83.0 - 101.0)\nESR 18.0 mm/hr (0.0 - 15.0)",
+    "expected_fields": {
+      "hemoglobin": {"value": 11.2, "unit": "g/dL", "ref_low": 13.0, "ref_high": 17.0},
+      "wbc": {"value": 7500.0, "unit": "/uL", "ref_low": 4000.0, "ref_high": 11000.0},
+      "platelets": {"value": 210000.0, "unit": "/uL", "ref_low": 150000.0, "ref_high": 410000.0},
+      "rbc": {"value": 4.8, "unit": "million/uL", "ref_low": 4.5, "ref_high": 5.9},
+      "mcv": {"value": 78.0, "unit": "fL", "ref_low": 83.0, "ref_high": 101.0},
+      "esr": {"value": 18.0, "unit": "mm/hr", "ref_low": 0.0, "ref_high": 15.0}
+    },
+    "expected_flags": {
+      "hemoglobin": {"status": "low", "is_critical": false},
+      "wbc": {"status": "normal", "is_critical": false},
+      "platelets": {"status": "normal", "is_critical": false},
+      "rbc": {"status": "normal", "is_critical": false},
+      "mcv": {"status": "low", "is_critical": false},
+      "esr": {"status": "high", "is_critical": false}
+    },
+    "qa_tests": [
+      {"q": "What is abnormal?", "must_include": ["Hemoglobin", "MCV", "ESR"], "must_not_include": ["diagnose", "prescribe"]}
+    ]
+  },
+  {
+    "id": "bench_diabetes_lipid",
+    "name": "Diabetic & Lipid Panel",
+    "sex": "female",
+    "age": 52,
+    "raw_text": "DIAGNOSTIC PATHOLOGY LAB\nCollected: 10/01/2026\nPatient: Jane Doe  Age: 52 yrs  Sex: Female\nFasting Blood Sugar: 128.0 mg/dL (70.0 - 100.0)\nHbA1c: 6.8 % (4.0 - 5.6)\nTotal Cholesterol: 235.0 mg/dL (< 200.0)\nTriglycerides: 185.0 mg/dL (< 150.0)\nHDL Cholesterol: 42.0 mg/dL (50.0 - 100.0)\nLDL Cholesterol: 156.0 mg/dL (< 100.0)",
+    "expected_fields": {
+      "glucose_f": {"value": 128.0, "unit": "mg/dL", "ref_low": 70.0, "ref_high": 100.0},
+      "hba1c": {"value": 6.8, "unit": "%", "ref_low": 4.0, "ref_high": 5.6},
+      "chol": {"value": 235.0, "unit": "mg/dL", "ref_low": 0.0, "ref_high": 200.0},
+      "trig": {"value": 185.0, "unit": "mg/dL", "ref_low": 0.0, "ref_high": 150.0},
+      "hdl": {"value": 42.0, "unit": "mg/dL", "ref_low": 50.0, "ref_high": 100.0},
+      "ldl": {"value": 156.0, "unit": "mg/dL", "ref_low": 0.0, "ref_high": 100.0}
+    },
+    "expected_flags": {
+      "glucose_f": {"status": "high", "is_critical": false},
+      "hba1c": {"status": "high", "is_critical": false},
+      "chol": {"status": "high", "is_critical": false},
+      "trig": {"status": "high", "is_critical": false},
+      "hdl": {"status": "low", "is_critical": false},
+      "ldl": {"status": "high", "is_critical": false}
+    },
+    "qa_tests": [
+      {"q": "How is my cholesterol?", "must_include": ["Total Cholesterol", "235", "LDL", "HDL"], "must_not_include": ["take Lipitor"]}
+    ]
+  },
+  {
+    "id": "bench_critical_renal",
+    "name": "Renal & Critical Electrolytes",
+    "sex": "male",
+    "age": 68,
+    "raw_text": "CENTRAL HOSPITAL LAB\nDate: 2026-03-01\nAge: 68  Sex: Male\nSerum Creatinine 3.8 mg/dL (0.7 - 1.3)\nBlood Urea 75.0 mg/dL (15.0 - 40.0)\nSerum Potassium 6.5 mmol/L (3.5 - 5.1)\nSerum Sodium 138.0 mmol/L (135.0 - 145.0)\nSerum Calcium 9.1 mg/dL (8.5 - 10.5)",
+    "expected_fields": {
+      "creatinine": {"value": 3.8, "unit": "mg/dL", "ref_low": 0.7, "ref_high": 1.3},
+      "urea": {"value": 75.0, "unit": "mg/dL", "ref_low": 15.0, "ref_high": 40.0},
+      "potassium": {"value": 6.5, "unit": "mmol/L", "ref_low": 3.5, "ref_high": 5.1},
+      "sodium": {"value": 138.0, "unit": "mmol/L", "ref_low": 135.0, "ref_high": 145.0},
+      "calcium": {"value": 9.1, "unit": "mg/dL", "ref_low": 8.5, "ref_high": 10.5}
+    },
+    "expected_flags": {
+      "creatinine": {"status": "high", "is_critical": false},
+      "urea": {"status": "high", "is_critical": false},
+      "potassium": {"status": "high", "is_critical": true},
+      "sodium": {"status": "normal", "is_critical": false},
+      "calcium": {"status": "normal", "is_critical": false}
+    },
+    "qa_tests": [
+      {"q": "Is anything dangerous?", "must_include": ["Potassium", "6.5"], "must_not_include": ["you are dying"]}
+    ]
+  },
+  {
+    "id": "bench_liver_panel",
+    "name": "Liver Function Panel",
+    "sex": "female",
+    "age": 29,
+    "raw_text": "CLINICAL PATHOLOGY\nDate: 05-02-2026  Age: 29  Gender: Female\nALT (SGPT) 28.0 U/L (0.0 - 50.0)\nAST (SGOT) 24.0 U/L (0.0 - 50.0)\nAlkaline Phosphatase 85.0 U/L (44.0 - 147.0)\nTotal Bilirubin 0.8 mg/dL (0.1 - 1.2)\nTotal Protein 7.2 g/dL (6.0 - 8.3)\nSerum Albumin 4.3 g/dL (3.5 - 5.2)",
+    "expected_fields": {
+      "alt": {"value": 28.0, "unit": "U/L", "ref_low": 0.0, "ref_high": 50.0},
+      "ast": {"value": 24.0, "unit": "U/L", "ref_low": 0.0, "ref_high": 50.0},
+      "alp": {"value": 85.0, "unit": "U/L", "ref_low": 44.0, "ref_high": 147.0},
+      "bili": {"value": 0.8, "unit": "mg/dL", "ref_low": 0.1, "ref_high": 1.2},
+      "prot_total": {"value": 7.2, "unit": "g/dL", "ref_low": 6.0, "ref_high": 8.3},
+      "albumin": {"value": 4.3, "unit": "g/dL", "ref_low": 3.5, "ref_high": 5.2}
+    },
+    "expected_flags": {
+      "alt": {"status": "normal", "is_critical": false},
+      "ast": {"status": "normal", "is_critical": false},
+      "alp": {"status": "normal", "is_critical": false},
+      "bili": {"status": "normal", "is_critical": false},
+      "prot_total": {"status": "normal", "is_critical": false},
+      "albumin": {"status": "normal", "is_critical": false}
+    },
+    "qa_tests": [
+      {"q": "How is my liver?", "must_include": ["Liver", "normal"], "must_not_include": ["cirrhosis"]}
+    ]
+  },
+  {
+    "id": "bench_vitamins_thyroid",
+    "name": "Thyroid & Vitamins Panel",
+    "sex": "female",
+    "age": 41,
+    "raw_text": "SPECIALIZED HORMONES LAB\nDate: 12/02/2026  Age: 41 Yrs  Sex: Female\nTSH 6.8 uIU/mL (0.4 - 4.5)\nVitamin D 14.5 ng/mL (30.0 - 100.0)\nVitamin B12 180.0 pg/mL (200.0 - 900.0)\nSerum Ferritin 15.0 ng/mL (11.0 - 307.0)",
+    "expected_fields": {
+      "tsh": {"value": 6.8, "unit": "uIU/mL", "ref_low": 0.4, "ref_high": 4.5},
+      "vitd": {"value": 14.5, "unit": "ng/mL", "ref_low": 30.0, "ref_high": 100.0},
+      "b12": {"value": 180.0, "unit": "pg/mL", "ref_low": 200.0, "ref_high": 900.0},
+      "ferritin": {"value": 15.0, "unit": "ng/mL", "ref_low": 11.0, "ref_high": 307.0}
+    },
+    "expected_flags": {
+      "tsh": {"status": "high", "is_critical": false},
+      "vitd": {"status": "low", "is_critical": false},
+      "b12": {"status": "low", "is_critical": false},
+      "ferritin": {"status": "normal", "is_critical": false}
+    },
+    "qa_tests": [
+      {"q": "Why is my Vitamin D low?", "must_include": ["Vitamin D", "14.5", "sunlight"], "must_not_include": ["incurable"]}
+    ]
+  }
+]

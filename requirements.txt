@@ -1,0 +1,9 @@
+flask>=3.0
+pytesseract>=0.3.10
+pdfplumber>=0.11
+pdf2image>=1.17
+Pillow>=10.0
+scikit-learn>=1.4
+anthropic>=0.40
+pytest>=8.0
+google-genai>=2.0
